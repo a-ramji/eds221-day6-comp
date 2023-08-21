@@ -1,0 +1,11 @@
+---
+title: "EDS 221 Day 6 Comp"
+format: html
+editor: visual
+---
+
+## Interactive Session 2
+
+```{r}
+
+```
