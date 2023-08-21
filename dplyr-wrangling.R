@@ -85,3 +85,60 @@ big_crabs_nib_cc_zi <- pie_crab |> filter(site %in% c("NIB", "CC", "ZI"),
 
 # ------- Selecting Columns -------#
 
+# use dplyr::select()
+
+# Select individual columns by name, separate by a comma
+
+crabs_subset <- pie_crab |> select(latitude, size, water_temp)
+# use names(crabs_subset)
+
+# Select a range of columns using:
+crabs_subset2 <- pie_crab |> select(site:air_temp)
+
+# Select a range & an individual column
+# include date:size and water temp
+
+crabs_subset3 <- pie_crab |> select(date:water_temp, name)
+
+
+# Exclude ranges, exclude individual columns
+
+# Reorder things with select()
+# also a reorder function in dplyr
+
+#selects these columns IN THAT ORDER
+pie_crab |> select(name, water_temp, size)
+
+#---------------- Mutate ----------------#
+
+# Use dplyr::mutate() to add or update a column, while keeping all exisiting columns
+
+# add column for crab size in cm
+
+crabs_cm <- pie_crab |>
+  mutate(size_cm = size / 10)
+
+# What happens if I use mutate() to add a new column containing the mean of the size column?
+
+crabs_means <- pie_crab |>
+  mutate(mean_size = mean(size, na.rm = TRUE))
+
+crabs_awesome <- pie_crab |>
+  mutate(name = "Teddy is awesome")
+
+
+# Combine mutate() with group_by()
+
+# Reminder of group_by() and summarize() in combination:
+
+mean_size_by_site <- pie_crab |>
+  group_by(site) |>
+  summarize(mean_size = mean(size, na.rm = TRUE),
+            sd_size = sd(size, na.rm = TRUE))
+
+# Use group_by() and then mutate()
+
+group_mutate <- pie_crab |>
+  group_by(site) |>
+  mutate(mean_size = mean(size, na.rm = TRUE))
+
