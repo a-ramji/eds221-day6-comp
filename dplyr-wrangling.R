@@ -142,3 +142,25 @@ group_mutate <- pie_crab |>
   group_by(site) |>
   mutate(mean_size = mean(size, na.rm = TRUE))
 
+# What if I want to create a new column in pie crab that contains "giant" if the size is greater than 35, or "not giant" if the size is less than or equal to 35?
+
+# use dplyr::case_when() to write if-else statements more easily
+
+crabs_bin <- pie_crab |>
+  mutate(size_binned = case_when(
+    size > 20 ~ "giant",
+    size <= 20 ~ "not giant"
+  ))
+
+# one more example with case_when()
+#
+
+sites_bin <- pie_crab |>
+  mutate(region = case_when(
+    site %in% c("ZI", "CC", "PIE") ~ "Low",
+    site %in% c("BB", "NIB") ~ "Middle",
+    TRUE ~ "High"
+#   .default = "High"
+  ))
+
+
